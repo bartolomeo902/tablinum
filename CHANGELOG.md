@@ -30,6 +30,7 @@ independently from upstream.
   `deadline` column.
 
 ### Fixed
+- `hooks/hooks.json`: the `wiki-lock` guards used `[ -x scripts/wiki-lock.sh ]`, but the script ships as mode 644, so the lock check before auto-commit and `clear-stale` were silently skipped. Guards now use `[ -f ... ]` (the script is always invoked with `bash`).
 - `scripts/tiling-check.py`: pages longer than the embedding model's context no
   longer fail with `embed_error`. Long pages are split on paragraph boundaries,
   embedded in chunks (retrying with halves on failure) and averaged by length.
